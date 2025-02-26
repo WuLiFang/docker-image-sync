@@ -38,7 +38,7 @@ jobs:
 
             echo "Syncing $source_image"
             
-            skopeo copy --all \
+            skopeo copy --all --retry-times 10 \
               docker://$source_image \
               docker://${TARGET_REGISTRY}/$dest_image
           done < images.txt
