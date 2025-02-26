@@ -5,7 +5,8 @@ on:
   push:
     paths:
       - "images.txt" # 当 images.txt 变更时自动触发
-
+  schedule:
+    - cron: "22 2 * * *" # 每晚 02:22 运行
 jobs:
   sync-images:
     runs-on: ubuntu-latest
