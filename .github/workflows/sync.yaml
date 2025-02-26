@@ -18,7 +18,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y skopeo
-
+      - name: Login to Target Registry
+        env:
+            DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+            skopeo login --username "$DOCKER_USER" --password "$DOCKER_PASS" \
+            "${{ secrets.DOCKER_CACHE_INGEST_REGISTRY }}"
       - name: Sync Images
         env:
           TARGET_REGISTRY: "${{ secrets.DOCKER_CACHE_INGEST_REGISTRY }}"
