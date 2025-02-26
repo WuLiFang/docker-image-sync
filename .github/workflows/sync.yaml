@@ -1,0 +1,37 @@
+name: Sync Docker Images to Cache Registry
+
+on:
+  workflow_dispatch: # 允许手动触发
+  push:
+    paths:
+      - "images.txt" # 当 images.txt 变更时自动触发
+
+jobs:
+  sync-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install skopeo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo
+
+      - name: Sync Images
+        env:
+          TARGET_REGISTRY: "${{ secrets.DOCKER_CACHE_INGEST_REGISTRY }}"
+        run: |
+          set -euo pipefail  # 严格错误检查
+
+          # 读取 images.txt 并逐行处理
+          while IFS= read -r source_image; do
+            # 提取镜像名称部分（去除 registry 前缀）
+            dest_image="${source_image#*/}"  # 假设源镜像格式为 docker.io/library/nginx:latest
+
+            echo "Syncing $source_image"
+            
+            skopeo copy --all \
+              docker://$source_image \
+              docker://${TARGET_REGISTRY}/$dest_image
+          done < images.txt
