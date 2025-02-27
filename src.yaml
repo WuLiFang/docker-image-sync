@@ -26,6 +26,7 @@ docker.io:
     traefik:
       - "v3"
       - "v3.2"
+      - "v3.3"
     registry:
       - "3.0.0-rc.3"
       - "latest"
