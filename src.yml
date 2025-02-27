@@ -3,26 +3,29 @@ docker.io:
     gitea/gitea:
       - "1"
       - "latest"
-    library/alpine:
+    alpine:
       - "3"
       - "3.19"
       - "latest"
-    library/golang:
+    golang:
       - "1-alpine"
       - "1.23.4-alpine3.19"
-    library/mysql:
+    mysql:
       - "8.0"
-    library/node:
+    node:
       - "20-bookworm"
       - "latest"
       - "lts"
       - "lts-alpine"
-    library/python:
+    python:
       - "3"
       - "3.10"
       - "latest"
-    library/redis:
+    redis:
       - "latest"
-    library/traefik:
+    traefik:
       - "v3"
       - "v3.2"
+    registry:
+      - "3.0.0-rc.3"
+      - "latest"
