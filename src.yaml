@@ -30,3 +30,6 @@ docker.io:
     registry:
       - "3.0.0-rc.3"
       - "latest"
+    nginx:
+      - "alpine"
+      - "latest"
