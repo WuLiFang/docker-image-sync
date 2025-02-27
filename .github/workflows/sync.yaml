@@ -4,12 +4,14 @@ on:
   workflow_dispatch: # 允许手动触发
   push:
     paths:
-      - "images.txt" # 当 images.txt 变更时自动触发
+      - "src.yaml"
   schedule:
     - cron: "22 18 * * *" # 每晚 02:22 运行
 jobs:
   sync-images:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -18,27 +20,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y skopeo
-      - name: Login to Target Registry
+      - name: Login to Registry
         env:
-            DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
-            DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-            skopeo login --username "$DOCKER_USER" --password "$DOCKER_PASS" \
-            "${{ secrets.DOCKER_CACHE_INGEST_REGISTRY }}"
+          skopeo login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" "$DOCKER_REGISTRY"
       - name: Sync Images
-        env:
-          TARGET_REGISTRY: "${{ secrets.DOCKER_CACHE_INGEST_REGISTRY }}"
         run: |
-          set -euo pipefail  # 严格错误检查
-
-          # 读取 images.txt 并逐行处理
-          while IFS= read -r source_image; do
-            # 提取镜像名称部分（去除 registry 前缀）
-            dest_image="${source_image#*/}"  # 假设源镜像格式为 docker.io/library/nginx:latest
-
-            echo "Syncing $source_image"
-            
-            skopeo copy --all --retry-times 10 \
-              docker://$source_image \
-              docker://${TARGET_REGISTRY}/$dest_image
-          done < images.txt
+          skopeo sync --src yaml --dest docker src.yml $DOCKER_REGISTRY
