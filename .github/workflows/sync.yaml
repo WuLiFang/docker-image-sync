@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - "src.yaml"
+  schedule:
+    - cron: "22 18 * * *" # 每晚 02:22 运行
 jobs:
   sync-images:
     runs-on: ubuntu-latest
@@ -27,3 +29,5 @@ jobs:
       - name: Sync Images
         run: |
           skopeo sync --src yaml --dest docker --scoped src.yaml $DOCKER_REGISTRY
+      - name: Keep Workflow Alive
+        uses: gautamkrishnar/keepalive-workflow@v2
