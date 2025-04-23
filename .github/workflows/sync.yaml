@@ -29,5 +29,3 @@ jobs:
       - name: Sync Images
         run: |
           skopeo sync --src yaml --dest docker --scoped src.yaml $DOCKER_REGISTRY
-      - name: Keep Workflow Alive
-        uses: gautamkrishnar/keepalive-workflow@v2
