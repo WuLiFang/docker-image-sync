@@ -18,6 +18,7 @@ docker.io:
       - "latest"
       - "lts"
       - "lts-alpine"
+      - "22-bookworm"
     python:
       - "3"
       - "3.10"
