@@ -3,6 +3,8 @@ docker.io:
     gitea/gitea:
       - "1"
       - "latest"
+    gitea/act_runner:
+      - "latest"
     alpine:
       - "3"
       - "3.19"
@@ -15,10 +17,10 @@ docker.io:
       - "8.0"
     node:
       - "20-bookworm"
-      - "latest"
-      - "lts"
-      - "lts-alpine"
       - "22-bookworm"
+      - "latest"
+      - "lts-alpine"
+      - "lts"
     python:
       - "3"
       - "3.10"
