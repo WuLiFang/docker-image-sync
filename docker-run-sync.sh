@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ -f ".env" ]; then
-  source .env
+WORKSPACE_DIR="$( dirname "$( realpath "${BASH_SOURCE[0]}" )" )"
+
+if [ -f "$WORKSPACE_DIR/.env" ]; then
+  source "$WORKSPACE_DIR/.env"
 fi
 
 export DOCKER_REGISTRY
@@ -9,7 +11,6 @@ export DOCKER_USERNAME
 export DOCKER_PASSWORD
 export HTTPS_PROXY
 
-WORKSPACE_DIR="$( dirname "$( realpath "${BASH_SOURCE[0]}" )" )"
 
 docker run --rm \
   -v "${WORKSPACE_DIR}:/workspace:ro" \
