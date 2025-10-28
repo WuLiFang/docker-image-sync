@@ -1,5 +1,7 @@
 docker.io:
   images:
+    buildpack-deps:
+      - stable
     gitea/gitea:
       - "1"
       - "latest"
