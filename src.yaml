@@ -28,6 +28,7 @@ docker.io:
     python:
       - "3"
       - "3.10"
+      - "3.13"
       - "latest"
     redis:
       - "latest"
