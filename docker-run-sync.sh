@@ -10,6 +10,7 @@ export DOCKER_REGISTRY
 export DOCKER_USERNAME
 export DOCKER_PASSWORD
 export HTTPS_PROXY
+export NO_PROXY
 
 
 docker run --rm \
@@ -18,7 +19,8 @@ docker run --rm \
   -e DOCKER_USERNAME \
   -e DOCKER_PASSWORD \
   -e HTTPS_PROXY \
-  --add-host host.docker.internal:host-gateway \
+  -e NO_PROXY \
+  --network host \
   --security-opt seccomp=unconfined \
   --entrypoint /bin/bash \
   ${SKOPEO_IMAGE:-quay.io/skopeo/stable:latest} \
