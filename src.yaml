@@ -6,22 +6,20 @@ docker.io:
       - "1"
       - "latest"
     gitea/act_runner:
-      - "latest"
+      - "nightly"
     alpine:
       - "3"
       - "3.19"
       - "latest"
     golang:
       - "1-alpine"
-      - "1.23.4-alpine3.19"
       - "1.24-alpine3.21"
+      - "1.25.4-alpine3.22"
     mysql:
       - "8.0"
     mongo:
       - "8.0"
     node:
-      - "20-bookworm"
-      - "22-bookworm"
       - "latest"
       - "lts-alpine"
       - "lts"
@@ -34,8 +32,7 @@ docker.io:
       - "latest"
     traefik:
       - "v3"
-      - "v3.2"
-      - "v3.3"
+      - "v3.6"
     registry:
       - "3.0.0"
       - "latest"
