@@ -40,3 +40,5 @@ docker.io:
       - "alpine"
       - "latest"
       - "1.31.2-alpine"
+    rootgg/plik:
+      - "latest"
