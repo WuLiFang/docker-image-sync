@@ -9,7 +9,7 @@ docker.io:
       - "nightly"
     alpine:
       - "3"
-      - "3.19"
+      - "3.24"
       - "latest"
     golang:
       - "1-alpine"
